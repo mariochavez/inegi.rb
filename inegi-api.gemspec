@@ -14,9 +14,10 @@ Gem::Specification.new do |s|
   s.test_files = `git ls-files -- {test,spec,features}/*`.split("\n")
   s.require_paths = ["lib"]
 
-  s.add_runtime_dependency "httparty", "~> 0.13.0"
+  s.add_runtime_dependency "excon", "~> 0.45.0"
   s.add_runtime_dependency "json", "~> 1.8.0"
 
   s.add_development_dependency "minitest"
   s.add_development_dependency "rake"
+  s.add_development_dependency "webmock"
 end
