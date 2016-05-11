@@ -1,5 +1,4 @@
 require "excon"
-require "json"
 
 __LIB_DIR__ = File.expand_path(File.join(File.dirname(__FILE__), ".."))
 unless $LOAD_PATH.include?(__LIB_DIR__)
@@ -23,7 +22,7 @@ module Inegi
       host: "www3.inegi.org.mx",
       scheme: "http",
       headers: {},
-      base_path: "sistemas/api/indicadores/v1/Indicador"
+      base_path: "/sistemas/api/indicadores/v1/Indicador/"
     }
 
     def initialize(options = {})
@@ -39,10 +38,11 @@ module Inegi
     def request(params)
       begin
         path = "#{@options[:base_path]}#{params}/json/#{@api_key}"
-        @connection.request(path: path)
+        @connection.request(path: path, method: :get)
       rescue Excon::Errors::HTTPStatusError => error
         klass =
           case error.response.status
+            when 400 then Inegi::API::Errors::BadRequest
             when 401 then Inegi::API::Errors::Unauthorized
             when 402 then Inegi::API::Errors::VerificationRequired
             when 403 then Inegi::API::Errors::Forbidden

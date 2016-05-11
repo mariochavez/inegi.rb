@@ -16,7 +16,7 @@ class APITest < Minitest::Test
       host: "www3.inegi.org.mx",
       scheme: "http",
       headers: {},
-      base_path: "sistemas/api/indicadores/v1/Indicador"
+      base_path: "/sistemas/api/indicadores/v1/Indicador/"
     }
 
     assert_equal options, subject
@@ -156,7 +156,7 @@ class APITest < Minitest::Test
 
   private
   def params
-    @params ||= "/1002000001/01/es/false"
+    @params ||= "1002000001/01/es/false"
   end
 
   def key
@@ -184,7 +184,7 @@ class APITest < Minitest::Test
   def get_url(params = "", key = "")
     options = Inegi::API::OPTIONS
 
-    base_url = "#{options[:scheme]}://#{options[:host]}/#{options[:base_path]}"
+    base_url = "#{options[:scheme]}://#{options[:host]}#{options[:base_path]}"
     if !params.empty?
       "#{base_url}#{params}/json/#{key}"
     else

@@ -11,6 +11,7 @@ module Inegi
         end
       end
 
+      class BadRequest < ErrorWithResponse; end
       class Unauthorized < ErrorWithResponse; end
       class VerificationRequired < ErrorWithResponse; end
       class Forbidden < ErrorWithResponse; end
